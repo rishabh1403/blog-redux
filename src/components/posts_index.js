@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-export default class App extends Component {
+export default class PostsIndex extends Component {
   render() {
     return (
-      <div>Hello</div>
+      <div>Hello Posts</div>
     );
   }
 }
