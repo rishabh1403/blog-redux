@@ -25,3 +25,13 @@ export function fetchPost(id){
         payload: request
     }
 }
+export function deletePost(id, cb){
+    const request = axios.delete(`http://reduxblog.herokuapp.com/api/posts/${id}?key=jain`)
+                    .then(()=>{
+                        cb();
+                    })
+    return {
+        type : 'DELETE_POST',
+        payload: request
+    }
+}
