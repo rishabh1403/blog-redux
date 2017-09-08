@@ -1,30 +1,56 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash'
+
+import { Field, reduxForm } from 'redux-form'
 class PostsNew extends Component {
 
-	// componentDidMount(){
-	// 	this.props.fetchPosts();
-	// }
-	// renderList(){
-	// 	return _.map(this.props.posts,item => {
-	// 		return (
-	// 			<li key={item.id} className="list-group-item">
-	// 				{item.title}
-	// 			</li>
-	// 		)
-	// 	})
-	// }
+    renderField(field){
+        return (
+            <div className="form-group">
+                <label>{field.label}</label>
+                <input className="form-control"
+                    type="text"
+                    {...field.input}
+                />
+                {field.meta.error}
+            </div>
+        )
+    }
 	render() {
 		return (
-			<div>
-				<h3>Posts</h3>
-				
-			</div>
+			<form>
+                <Field 
+                    label="Title"
+                    name="title"
+                    component={this.renderField}
+                />
+                <Field 
+                    label="Categories"
+                    name="categories"
+                    component={this.renderField}
+                />
+                <Field 
+                    label="Post Content"
+                    name="content"
+                    component={this.renderField}
+                />
+            </form>
 		);
 	}
 }
-// function mapStateToProps({posts}){
-// 	return {posts};
-// }
-export default connect()(PostsNew);
+function validate(values){
+    const errors = {};
+    if(!values.title){
+        errors.title = "Enter a title";
+    }
+    if(!values.categories){
+        errors.title = "Enter a category";
+    }
+    if(!values.content){
+        errors.title = "Enter some content";
+    }
+    return errors;
+}
+export default reduxForm({
+    validate,
+    form: 'PostsNewForm'
+})(PostsNew);
